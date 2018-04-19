@@ -25,53 +25,52 @@ class List extends React.Component {
   }
 
   fetchCurrencies() {
-    this.setState({
-      loading: true});
-
+    this.setState({ loading: true });
+    
     const { page } = this.state;
 
     fetch(`${API_URL}/cryptocurrencies?page=${page}&perPage=20`)
-    .then(handleResponse)
-    .then((data) => {
-      const { currencies, totalPages} = data;
+      .then(handleResponse)
+      .then((data) => {
+        const { currencies, totalPages } = data;
 
-      this.setState({
-        currencies : currencies,
-        totalPages: totalPages,
-        loading: false});
-    })
-    .catch((error) => {
-      this.setState({
-        error: error.errorMessage,
-        loading: false});
-    });
+        this.setState({
+          currencies,
+          totalPages,
+          loading: false,
+        });
+      })
+      .catch((error) => {
+        this.setState({
+          error: error.errorMessage,
+          loading: false,
+        });
+      });
   }
 
-
-
-  handlePaginationClick(direction){
+  handlePaginationClick(direction) {
     let nextPage = this.state.page;
 
-    //increment nextPage if direction variable is next, otherwise decrement
-    nextPage = direction === 'next' ? nextPage + 1: nextPage - 1;
+    // Increment nextPage if direction variable is next, otherwise decrement
+    nextPage = direction === 'next' ? nextPage + 1 : nextPage - 1;
 
-    this.setState({page: nextPage}, () => {
-      //call fetchCurrencies funciton inside callback to make sure page is updated
+    this.setState({ page: nextPage }, () => {
+      // call fetchCurrencies function inside setState's callback
+      // because we have to make sure first page state is updated
       this.fetchCurrencies();
     });
   }
 
   render() {
-    const { loading, error, currencies, page, totalPages} = this.state;
+    const { loading, error, currencies, page, totalPages } = this.state;
 
-
-    //render only loading component if loading state is set to true
+    // render only loading component, if loading state is set to true
     if (loading) {
       return <div className="loading-container"><Loading /></div>
     }
 
-    //render only error message if error occurred while fetching data
-    if (error){
+    // render only error message, if error occurred while fetching data
+    if (error) {
       return <div className="error">{error}</div>
     }
 

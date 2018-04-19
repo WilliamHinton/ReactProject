@@ -7,6 +7,7 @@ import './Detail.css';
 class Detail extends React.Component {
   constructor() {
     super();
+
     this.state = {
       currency: {},
       loading: false,
@@ -15,11 +16,11 @@ class Detail extends React.Component {
   }
 
   componentDidMount() {
-    const currencyID = this.props.match.params.id;
+    const currencyId = this.props.match.params.id;
 
     this.setState({ loading: true });
 
-    fetch(`${API_URL}/cryptocurrencies/${currencyID}`)
+    fetch(`${API_URL}/cryptocurrencies/${currencyId}`)
       .then(handleResponse)
       .then((currency) => {
         this.setState({
@@ -28,7 +29,6 @@ class Detail extends React.Component {
           currency,
         });
       })
-
       .catch((error) => {
         this.setState({
           loading: false,
@@ -39,13 +39,14 @@ class Detail extends React.Component {
 
   render() {
     const { loading, error, currency } = this.state;
-    //only render loading component if loading is set to true
-    if(loading) {
+
+    // Render only loading component if loading state is set to true
+    if (loading) {
       return <div className="loading-container"><Loading /></div>
     }
 
-    //only render error if error occurred
-    if (error){
+    // Render only error message, if error occurred while fetching data
+    if (error) {
       return <div className="error">{error}</div>
     }
 
@@ -63,7 +64,8 @@ class Detail extends React.Component {
             Rank <span className="Detail-value">{currency.rank}</span>
           </div>
           <div className="Detail-item">
-            24H Change <span className="Detail-value">{renderChangePercent(currency.percentChange24h)}</span>
+            24H Change
+            <span className="Detail-value">{renderChangePercent(currency.percentChange24h)}</span>
           </div>
           <div className="Detail-item">
             <span className="Detail-title">Market cap</span>
@@ -79,7 +81,6 @@ class Detail extends React.Component {
             <span className="Detail-title">Total supply</span>
             {currency.totalSupply}
           </div>
-
         </div>
       </div>
     );

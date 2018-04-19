@@ -5,11 +5,11 @@ import './NotFound.css';
 const NotFound = () => {
   return (
     <div className="NotFound">
-      <h1 className="NotFound-title">Oops! This page doesn't exist!</h1>
+      <h1 className="NotFound-title">Oops! Page not found</h1>
 
       <Link to="/" className="NotFound-link">Go to homepage</Link>
     </div>
-  )
+  );
 }
 
 export default NotFound;

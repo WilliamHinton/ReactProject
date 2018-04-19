@@ -1,8 +1,10 @@
 import React from 'react';
 
-// Fetch error helper
-//@param {object} response
-
+/**
+ * Fetch response helper
+ * 
+ * @param {object} response 
+ */
 export const handleResponse = (response) => {
   return response.json().then(json => {
     return response.ok ? json : Promise.reject(json);
@@ -10,9 +12,10 @@ export const handleResponse = (response) => {
 }
 
 /**
-*render change percent helper
-* @param {string} percent
-*/
+ * Render change percent helper
+ * 
+ * @param {string} percent 
+ */
 export const renderChangePercent = (percent) => {
   if (percent > 0) {
     return <span className="percent-raised">{percent}% &uarr;</span>
